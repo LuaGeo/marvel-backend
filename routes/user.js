@@ -55,6 +55,8 @@ router.post("/user/login", async (req, res) => {
           token: findUserByEmail.token,
           username: findUserByEmail.username,
         });
+      } else if (!email || !password) {
+        res.status(400).json({ error: { message: "Missing Parameters" } });
       } else {
         res.status(401).json({ message: "Non autorisé" });
       }
