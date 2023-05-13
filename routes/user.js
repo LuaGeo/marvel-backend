@@ -16,11 +16,9 @@ router.post("/user/signup", async (req, res) => {
     const receivedUser = await User.findOne({ email: email });
 
     if (receivedUser) {
-      res.status(409).json({ error: { message: "Email déjà utilisé" } });
+      res.status(409).json({ error: { message: "Email already used" } });
     } else if (!username || !email || !password) {
-      res
-        .status(400)
-        .json({ error: { message: "Veuillez remplir tous les champs" } });
+      res.status(400).json({ error: { message: "Missing Parameters" } });
     } else {
       const salt = uid2(20);
       const hash = SHA256(salt + password).toString(encBase64);

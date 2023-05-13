@@ -52,7 +52,7 @@ app.get("/characters", async (req, res) => {
     const limit = req.query.limit || "100";
 
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${apiKey}&name=${name}&skip=${skip}&limit=${limit}` //characters?name=${search}&skip=${skip}&limit=${limit}
+      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${apiKey}&name=${name}&skip=${skip}&limit=${limit}`
     );
     res.json(response.data);
   } catch (error) {
