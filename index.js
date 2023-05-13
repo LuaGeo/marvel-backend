@@ -2,19 +2,16 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const axios = require("axios");
+const mongoose = require("mongoose");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// const comicsRoutes = require("./routes/comics");
-// const comicIdRoutes = require("./routes/comicId");
-// const charactersRoutes = require("./routes/characters");
-// const characterIdRoutes = require("./routes/characterId");
-// app.use(comicsRoutes);
-// app.use(comicIdRoutes);
-// app.use(charactersRoutes);
-// app.use(characterIdRoutes);
+mongoose.connect(process.env.MONGODB_URI);
+
+const userRoutes = require("./routes/user");
+app.use(userRoutes);
 
 const apiKey = process.env.API_KEY;
 
@@ -25,7 +22,7 @@ app.get("/comics", async (req, res) => {
     const limit = req.query.limit || "100";
 
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}&title=${title}&skip=${skip}&limit=${limit}`
+      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}&title=${title}&skip=${skip}&limit=${limit}` //comics
     );
     res.json(response.data);
   } catch (error) {
@@ -39,9 +36,10 @@ app.get("/comics/:characterId", async (req, res) => {
     const characterId = req.params.characterId;
 
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics/${characterId}?apiKey=${apiKey}`
+      `https://lereacteur-marvel-api.herokuapp.com/comics/${characterId}?apiKey=${apiKey}` //comics/:characterId
     );
     res.status(200).json(response.data);
+    console.log(response.data);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -54,7 +52,7 @@ app.get("/characters", async (req, res) => {
     const limit = req.query.limit || "100";
 
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${apiKey}&name=${name}&skip=${skip}&limit=${limit}`
+      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${apiKey}&name=${name}&skip=${skip}&limit=${limit}` //characters?name=${search}&skip=${skip}&limit=${limit}
     );
     res.json(response.data);
   } catch (error) {
