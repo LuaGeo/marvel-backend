@@ -13,6 +13,9 @@ mongoose.connect(process.env.MONGODB_URI);
 const userRoutes = require("./routes/user");
 app.use(userRoutes);
 
+const favoritesRoutes = require("./routes/favoriteCharacters");
+app.use(favoritesRoutes);
+
 const apiKey = process.env.API_KEY;
 
 app.get("/comics", async (req, res) => {
