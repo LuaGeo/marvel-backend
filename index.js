@@ -22,10 +22,10 @@ app.get("/comics", async (req, res) => {
   try {
     const title = req.query.title || "";
     const skip = req.query.skip || "0";
-    const limit = req.query.limit || "100";
+    const limit = req.query.limit || "50";
 
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics?apiKey=${apiKey}&title=${title}&skip=${skip}&limit=${limit}` //comics
+      `https://gateway.marvel.com:443/v1/public/comics?limit=${limit}&apiKey=${apiKey}&title=${title}&skip=${skip}` //comics
     );
     res.json(response.data);
   } catch (error) {
@@ -39,7 +39,7 @@ app.get("/comics/:characterId", async (req, res) => {
     const characterId = req.params.characterId;
 
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/comics/${characterId}?apiKey=${apiKey}` //comics/:characterId
+      `https://gateway.marvel.com:443/v1/public/characters/${characterId}/comics?limit=50&apikey=${apiKey}` //comics/:characterId
     );
     res.status(200).json(response.data);
     console.log(response.data);
@@ -52,10 +52,10 @@ app.get("/characters", async (req, res) => {
   try {
     const name = req.query.name || "";
     const skip = req.query.skip || "0";
-    const limit = req.query.limit || "100";
+    const limit = req.query.limit || "50";
 
     const response = await axios.get(
-      `https://lereacteur-marvel-api.herokuapp.com/characters?apiKey=${apiKey}&name=${name}&skip=${skip}&limit=${limit}`
+      `https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&apikey=bd6b86b57fc6c0f6d8aca97ead79e660&name=${name}&skip=${skip}`
     );
     res.json(response.data);
   } catch (error) {
