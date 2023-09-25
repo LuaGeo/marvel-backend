@@ -20,12 +20,12 @@ const apiKey = process.env.API_KEY;
 
 app.get("/comics", async (req, res) => {
   try {
-    const title = req.query.title || "";
+    // const title = req.query.title || "";
     const skip = req.query.skip || "0";
     const limit = req.query.limit || "50";
 
     const response = await axios.get(
-      `https://gateway.marvel.com:443/v1/public/comics?limit=${limit}&apiKey=${apiKey}&title=${title}&skip=${skip}` //comics
+      `https://gateway.marvel.com:443/v1/public/comics?limit=${limit}&apiKey=${apiKey}&skip=${skip}` //comics &title=${title}
     );
     res.json(response.data);
   } catch (error) {
@@ -50,12 +50,12 @@ app.get("/comics/:characterId", async (req, res) => {
 
 app.get("/characters", async (req, res) => {
   try {
-    const name = req.query.name || "";
+    // const name = req.query.name || "";
     const skip = req.query.skip || "0";
     const limit = req.query.limit || "50";
 
     const response = await axios.get(
-      `https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&apikey=bd6b86b57fc6c0f6d8aca97ead79e660&name=${name}&skip=${skip}`
+      `https://gateway.marvel.com:443/v1/public/characters?limit=${limit}&apikey=bd6b86b57fc6c0f6d8aca97ead79e660&skip=${skip}` //&name=${name}
     );
     res.json(response.data);
   } catch (error) {
